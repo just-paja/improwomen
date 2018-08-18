@@ -1,0 +1,13 @@
+---
+- name: Deploy the project
+  hosts: web
+  roles:
+    - role: practical-ansible.nginx-redirect
+      nginx_redirect_project_name: cz-improwomen
+      nginx_redirect_server_name: www.improwomen.cz
+      nginx_redirect_destination_domain: improwomen.cz
+    - role: practical-ansible.nginx-static
+      nginx_static_project_name: cz-improwomen
+      nginx_static_server_name: improwomen.cz
+      nginx_static_project_environment: production
+      nginx_static_directory: src/
