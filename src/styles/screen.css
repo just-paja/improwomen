@@ -4,7 +4,7 @@ html, body {
 }
 
 body {
-  background-image: url(../images/background-web.jpg);
+  background-image: url(../images/background-2019.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -14,22 +14,18 @@ a, a:link, a:visited {
   text-decoration: underline;
 }
 
-a {
-  color: #9A2248;
-}
-
+a,
 a:visited {
-  color: #79092D
+  color: #88702B;
 }
 
 a:hover {
-  color: #D56589;
+  color: #C3AA5F;
 }
 
-.header {
-  background-color: rgba(255,255,255,.66);
-  padding: 2rem;
-  border-radius: 1rem;
+h1, h2 {
+  color: #fff;
+  font-weight: normal;
 }
 
 .container {
@@ -40,8 +36,23 @@ a:hover {
 }
 
 .page-content {
-  margin: 0 auto;
-  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 0;
+  max-width: 32rem;
+}
+
+.header-container {
+  align-items: flex-start;
+}
+
+.header {
+  color: rgba(255,255,255,.975);
+  text-shadow: rgba(255,255,255,.33) 0 0 1rem;
+  padding: 0;
+  border-radius: 1rem;
+  margin-top: 7rem;
+  text-align: center;
 }
 
 .fa-improliga {
@@ -62,4 +73,8 @@ footer, footer a {
 footer a {
   font-size: 2rem;
   margin: 0 0.5rem;
+}
+
+.text-justify {
+  text-align: justify;
 }
