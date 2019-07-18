@@ -1,0 +1,81 @@
+workspace_root: &workspace_root
+  ~/repo
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/python:3-stretch
+
+version: 2
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - dependencies-{{ checksum "requirements.txt" }}
+          - dependencies-{{ checksum "requirements-ansible.yml" }}
+
+      - run:
+          name: Install Python dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install pipenv vrun
+            pipenv install --dev
+            pipenv check
+
+      - run:
+          name: Install Ansible dependencies
+          command: |
+            . venv/bin/activate
+            ansible-galaxy install -r requirements-ansible.yml -p ./roles
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: dependencies-{{ checksum "requirements.txt" }}
+
+      - save_cache:
+          paths:
+            - ~/.ansible
+          key: dependencies-{{ checksum "requirements-ansible.yml" }}
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
+
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: *workspace_root
+
+      - run:
+          name: Install rsync
+          command: sudo apt-get install rsync
+
+      - run:
+          name: Configure Ansible inventory
+          command: echo -e "[web]\n${PRODUCTION_DEPLOY_HOST}" > inventory.yml
+
+      - run:
+          name: Deploy website
+          command: |
+            . venv/bin/activate
+            env NGINX_STATIC_VERSION=$CIRCLE_TAG ansible-playbook deploy.yml -i inventory.yml
+
+workflows:
+  version: 2
+  build-n-deploy:
+    jobs:
+      - install
+      - deploy:
+          requires:
+            - install
+          filters:
+            branches:
+              only: master
