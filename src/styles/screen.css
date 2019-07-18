@@ -28,7 +28,7 @@ h1, h2 {
   font-weight: normal;
 }
 
-.container {
+.page-container {
   align-items: center;
   display: flex;
   height: 100%;
@@ -77,4 +77,27 @@ footer a {
 
 .text-justify {
   text-align: justify;
+}
+
+@keyframes move-twink-back {
+  from { background-position:0 0; }
+  to { background-position:-10000px 5000px; }
+}
+
+.stars, .twinkling, .clouds {
+  height: 100%;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(../images/stars-sky.png);
+  background-position: top center;
+  background-repeat: repeat;
+  z-index:0;
+}
+
+.twinkling{
+  background: transparent url(../images/star-shaders.png) repeat top center;
+  z-index:1;
+  animation: move-twink-back 150s linear infinite;
 }
