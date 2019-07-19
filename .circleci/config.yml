@@ -22,9 +22,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install pipenv vrun
-            pipenv install --dev
-            pipenv check
+            pip install -r requirements.txt
 
       - run:
           name: Install Ansible dependencies
