@@ -79,25 +79,68 @@ footer a {
   text-align: justify;
 }
 
-@keyframes move-twink-back {
-  from { background-position:0 0; }
-  to { background-position:-10000px 5000px; }
-}
-
-.stars, .twinkling, .clouds {
+.twinkling, .clouds {
   height: 100%;
   width: 100%;
 }
 
-.stars {
-  background-image: url(../images/stars-sky.png);
-  background-position: top center;
-  background-repeat: repeat;
-  z-index:0;
+.info-page {
+  position: relative;
+  background-image: linear-gradient(#031933, #0d0d2f);
+  text-shadow: rgba(255,255,255,.33) 0 0 0.1rem;
 }
 
-.twinkling{
-  background: transparent url(../images/star-shaders.png) repeat top center;
-  z-index:1;
-  animation: move-twink-back 150s linear infinite;
+.lead {
+  text-shadow: rgba(255,255,255,.33) 0 0 0.25rem;
+}
+
+.stars {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+@keyframes star-twinkle {
+  0% { opacity: 0 }
+  25% { opacity: 0.5 }
+  75% { opacity: 0.75 }
+  100% { opacity: 0 }
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: 7s star-twinkle;
+  animation-iteration-count: infinite;
+}
+
+.star-tiny {
+  width: 1.15px;
+  height: 1.15px;
+}
+
+.star-small {
+  width: 1.5px;
+  height: 1.5px;
+}
+
+.star-mid {
+  width: 2px;
+  height: 2px;
+}
+
+.star-big {
+  width: 3px;
+  height: 3px;
+}
+
+.over-stars {
+  position: relative;
+  z-index: 1;
 }
